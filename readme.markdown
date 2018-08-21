@@ -460,6 +460,29 @@ npm install --save-dev postcss-cssnext
 ```
 
 [slide data-transition="stick"]
+## PostCSS
+
+* PostCSS 还需要创建对应的配置文件 postcss.config.js
+```
+module.exports = {
+    plugins: [
+      require('autoprefixer')
+    ]
+  };
+```
+* 同时还要在pacage.json中配置的文件
+```
+  "browserslist": [
+    "defaults",
+    "not ie < 11",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ],
+```
+
+[slide data-transition="stick"]
 ## React
 * 在使用了React的项目里，JSX和Class语法并不是必需的，但使用新语法写出的代码看上去更优雅(官方推荐)。
 ```
@@ -524,6 +547,9 @@ npm install --save-dev vue-loader css-loader vue-template-compiler
     * *代码风格*：统一代码风格，例如如何缩进，如果写注释等（保障代码的可读性）。
     * *潜在问题*：分析代码在运行过程中可能出现的潜在Bug.
 
+[slide data-transition="stick"]
+## ESlint
+
 * 最常用的检查工具的是*ESlint*,不仅内置大量检查规则，还可以通过插件的机制进行扩展。
     * 可以通过 eslint-loader 可以方便的将ESLint 整合到 Webpack 中，使用方法如下：
 
@@ -533,8 +559,7 @@ module.exports={
         rules:[
             {
                 test:/\.js$/,
-                // 不用检查 node_modules 目录下的代码
-                include:/node_modules/,
+                include: [path.resolve(__dirname, 'src')], // 指定检查的目录
                 loader:'eslint-loader',
                 // 将 eslint-loader 的执行顺序放在最前面，防止其他loader将处理后的代码交给eslint-loader 去检查
                 enforce:'pre'
@@ -545,6 +570,7 @@ module.exports={
 ```
 
 * 接入eslint-loader 后，就能在*控制台中*看到ESLint输出的*错误日志*了。
+* 最后，项目想要使用那些eslin规则，可以创建一个配置项文件 ‘.eslintrc.js’
 
 [slide data-transition="stick"]
 ## 加载图片
